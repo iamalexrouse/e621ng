@@ -1439,6 +1439,40 @@ class Post < ApplicationRecord
       hash
     end
 
+    def alternate_samples
+      alternates = {}
+      Danbooru.config.video_rescales.each do |k, v|
+        next unless has_sample_size?(k)
+        dims = scaled_sample_dimensions(v)
+        alternates[k] = {
+          type: "video",
+          height: dims[1],
+          width: dims[0],
+          urls: visible? ? [scaled_url_ext(k, "webm"), scaled_url_ext(k, "mp4")] : [nil, nil],
+        }
+      end
+      if has_sample_size?("original")
+        fixed_dims = scaled_sample_dimensions([image_width, image_height])
+        alternates["original"] = {
+          type: "video",
+          height: fixed_dims[1],
+          width: fixed_dims[0],
+          urls: visible? ? [nil, file_url_ext("mp4")] : [nil, nil],
+        }
+      end
+      Danbooru.config.image_rescales.each do |k, v|
+        next unless has_sample_size?(k)
+        dims = scaled_sample_dimensions(v)
+        alternates[k] = {
+          type: "image",
+          height: dims[1],
+          width: dims[0],
+          url: visible? ? scaled_url_ext(k, "jpg") : nil,
+        }
+      end
+      alternates
+    end
+
     def status
       if is_pending?
         "pending"
