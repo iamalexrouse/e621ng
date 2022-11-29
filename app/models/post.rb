@@ -1473,6 +1473,69 @@ class Post < ApplicationRecord
       alternates
     end
 
+    def serializable_hash(*)
+      preview_height, preview_width = preview_dimensions
+      {
+        id: id,
+        created_at: created_at,
+        updated_at: updated_at,
+        file: {
+          width: image_width,
+          height: image_height,
+          ext: file_ext,
+          size: file_size,
+          md5: md5,
+          url: visible? ? file_url : nil,
+        },
+        preview: {
+          width: preview_width,
+          height: preview_height,
+          url: visible? ? preview_file_url : nil,
+        },
+        sample: {
+          has: has_large?,
+          height: large_image_height,
+          width: large_image_width,
+          url: visible? ? large_file_url : nil,
+          alternates: alternate_samples,
+        },
+        score: {
+          up: up_score,
+          down: down_score,
+          total: score,
+        },
+        tags: TagCategory.categories.index_with { |category| typed_tags(category) },
+        locked_tags: locked_tags&.split(" ") || [],
+        change_seq: change_seq,
+        flags: {
+          pending: is_pending,
+          flagged: is_flagged,
+          note_locked: is_note_locked,
+          status_locked: is_status_locked,
+          rating_locked: is_rating_locked,
+          comment_disabled: is_comment_disabled,
+          deleted: is_deleted,
+        },
+        rating: rating,
+        fav_count: fav_count,
+        sources: source.split("\n"),
+        pools: pool_ids,
+        relationships: {
+          parent_id: parent_id,
+          has_children: has_children,
+          has_active_children: has_active_children,
+          children: children_ids&.split(" ")&.map(&:to_i) || [],
+        },
+        approver_id: approver_id,
+        uploader_id: uploader_id,
+        description: description,
+        comment_count: comment_count,
+        is_favorited: is_favorited?,
+        has_notes: has_notes?,
+        duration: duration&.to_f,
+      }
+    end
+
     def status
       if is_pending?
         "pending"

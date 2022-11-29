@@ -6,7 +6,6 @@ gem "rails", "~> 7.0"
 gem "pg"
 gem "dalli", :platforms => :ruby
 gem "simple_form"
-gem 'active_model_serializers', '~> 0.10.0'
 gem "whenever", :require => false
 gem "sanitize"
 gem 'ruby-vips'

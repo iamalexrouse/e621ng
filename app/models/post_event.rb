@@ -66,4 +66,14 @@ class PostEvent < ApplicationRecord
 
     q.apply_default_order(params)
   end
+
+  def serializable_hash(*)
+    {
+      id: id,
+      creator_id: is_creator_visible?(CurrentUser.user) ? creator_id : nil,
+      post_id: post_id,
+      action: action,
+      created_at: created_at,
+    }
+  end
 end

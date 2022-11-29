@@ -21,7 +21,7 @@ class IqdbQueriesController < ApplicationController
       end
 
       fmt.json do
-        render json: @matches, root: 'posts'
+        render json: { posts: @matches }
       end
     end
   rescue IqdbProxy::Error => e
