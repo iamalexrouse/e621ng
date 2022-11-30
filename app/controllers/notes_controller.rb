@@ -24,7 +24,7 @@ class NotesController < ApplicationController
     respond_with(@note) do |fmt|
       fmt.json do
         if @note.errors.any?
-          render :json => {:success => false, :reasons => @note.errors.full_messages}.to_json, :status => 422
+          render json: { success: false, reasons: @note.errors.full_messages }, status: 422
         else
           render :json => @note.to_json(:methods => [:html_id])
         end
@@ -38,9 +38,9 @@ class NotesController < ApplicationController
     respond_with(@note) do |format|
       format.json do
         if @note.errors.any?
-          render :json => {:success => false, :reasons => @note.errors.full_messages}.to_json, :status => 422
+          render json: { success: false, reasons: @note.errors.full_messages }, status: 422
         else
-          render :json => @note.to_json
+          render json: @note
         end
       end
     end

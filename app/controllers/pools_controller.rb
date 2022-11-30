@@ -15,12 +15,8 @@ class PoolsController < ApplicationController
 
   def index
     @pools = Pool.search(search_params).paginate(params[:page], :limit => params[:limit], :search_count => params[:search])
-    respond_with(@pools) do |format|
-      format.json do
-        render json: @pools.to_json
-        expires_in params[:expiry].to_i.days if params[:expiry]
-      end
-    end
+    expires_in params[:expiry].to_i.days if params[:expiry]
+    respond_with(@pools)
   end
 
   def gallery

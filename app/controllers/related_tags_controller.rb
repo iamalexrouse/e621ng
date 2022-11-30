@@ -11,10 +11,6 @@ class RelatedTagsController < ApplicationController
 
   def bulk
     @query = BulkRelatedTagQuery.new(query: params[:query], category: params[:category], user: CurrentUser.user)
-    respond_with(@query) do |fmt|
-      fmt.json do
-        render json: @query.to_json
-      end
-    end
+    respond_with(@query)
   end
 end

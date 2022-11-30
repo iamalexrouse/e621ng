@@ -156,7 +156,7 @@ class ApplicationController < ActionController::Base
         end
       end
       fmt.json do
-        render :json => {:success => false, reason: @message}.to_json, :status => 403
+        render json: { success: false, reason: @message }, status: 403
       end
     end
   end

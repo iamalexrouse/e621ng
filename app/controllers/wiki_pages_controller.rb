@@ -25,6 +25,7 @@ class WikiPagesController < ApplicationController
 
   def index
     @wiki_pages = WikiPage.search(search_params).paginate(params[:page], :limit => params[:limit], :search_count => params[:search])
+    expires_in params[:expiry].to_i.days if params[:expiry]
     respond_with(@wiki_pages) do |format|
       format.html do
         if params[:page].nil? || params[:page].to_i == 1
@@ -34,10 +35,6 @@ class WikiPagesController < ApplicationController
             redirect_to(wiki_pages_path(:search => {:title => "*#{params[:search][:title]}*"}))
           end
         end
-      end
-      format.json do
-        render json: @wiki_pages.to_json
-        expires_in params[:expiry].to_i.days if params[:expiry]
       end
     end
   end

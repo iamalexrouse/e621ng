@@ -22,12 +22,8 @@ class UsersController < ApplicationController
       redirect_to user_path(id: params[:name])
     else
       @users = User.search(search_params).includes(:user_status).paginate(params[:page], limit: params[:limit], search_count: params[:search])
-      respond_with(@users) do |format|
-        format.json do
-          render json: @users.to_json
-          expires_in params[:expiry].to_i.days if params[:expiry]
-        end
-      end
+      expires_in params[:expiry].to_i.days if params[:expiry]
+      respond_with(@users)
     end
   end
 
