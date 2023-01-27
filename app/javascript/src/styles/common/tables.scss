@@ -1,7 +1,9 @@
 
-table.table {
+table.striped {
   width: 100%;
-  p {
+
+  // DText formatting fix
+  *:last-child {
     margin: 0;
   }
 
@@ -62,11 +64,6 @@ table.table {
       }
     }
   }
-}
-
-// Needed so that unconverted tables work.
-table.striped {
-  @extend .table;
 }
 
 /*

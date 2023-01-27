@@ -213,7 +213,7 @@ class Artist < ApplicationRecord
       self.urls = string.to_s.scan(/[^[:space:]]+/).map do |url|
         is_active, url = ArtistUrl.parse_prefix(url)
         self.urls.find_or_initialize_by(url: url, is_active: is_active)
-      end.uniq(&:url)[0..MAX_URLS_PER_ARTIST]
+      end.uniq(&:url).first(MAX_URLS_PER_ARTIST)
 
       self.url_string_changed = (url_string_was != url_string)
     end
@@ -232,7 +232,7 @@ class Artist < ApplicationRecord
     # Returns a count of sourced domains for the artist.
     # A domain only gets counted once per post, direct image urls are filtered out.
     def domains
-      Cache.get("artist-domains-#{id}", 1.day) do
+      Cache.fetch("artist-domains-#{id}", 1.day) do
         re = /\.(png|jpeg|jpg|webm|mp4)$/m
         counted = Hash.new(0)
         sources = Post.raw_tag_match(name).limit(100).records.pluck(:source).each do |source_string|
@@ -254,6 +254,7 @@ class Artist < ApplicationRecord
   module NameMethods
     extend ActiveSupport::Concern
 
+    MAX_OTHER_NAMES_PER_ARTIST = 25
     module ClassMethods
       def normalize_name(name)
         name.to_s.downcase.strip.gsub(/ /, '_').to_s
@@ -271,7 +272,7 @@ class Artist < ApplicationRecord
     def normalize_other_names
       self.other_names = other_names.map { |x| Artist.normalize_name(x) }.uniq
       self.other_names -= [name]
-      self.other_names = other_names[0..25].map { |other_name| other_name[0..99] }
+      self.other_names = other_names.first(MAX_OTHER_NAMES_PER_ARTIST).map { |other_name| other_name.first(100) }
     end
   end
 

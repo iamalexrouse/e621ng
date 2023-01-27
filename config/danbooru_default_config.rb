@@ -30,12 +30,6 @@ module Danbooru
       Socket.gethostname
     end
 
-    # The list of all domain names this site is accessible under.
-    # Example: %w[danbooru.donmai.us sonohara.donmai.us hijiribe.donmai.us safebooru.donmai.us]
-    def hostnames
-      [hostname]
-    end
-
     # Contact email address of the admin.
     def contact_email
       "management@#{domain}"
@@ -58,7 +52,7 @@ module Danbooru
     end
 
     def source_code_url
-      "https://github.com/zwagoth/e621ng"
+      "https://github.com/e621ng/e621ng"
     end
 
     def commit_url(hash)
@@ -91,17 +85,17 @@ module Danbooru
 
     # Set the default level, permissions, and other settings for new users here.
     def customize_new_user(user)
+      user.blacklisted_tags = default_blacklist.join("\n")
       user.comment_threshold = -10
-      user.enable_keyboard_navigation = true
       user.enable_auto_complete = true
+      user.enable_keyboard_navigation = true
+      user.per_page = 75
+      user.show_post_statistics = true
       user.style_usernames = true
-      user.blacklisted_tags = 'gore
-scat
-watersports
-young -rating:s
-loli
-shota
-fart'
+    end
+
+    def default_blacklist
+      []
     end
 
     # This allows using statically linked copies of ffmpeg in non default locations. Not universally supported across
@@ -602,7 +596,7 @@ fart'
         "Previously deleted (post #%PARENT_ID%)",
         "Excessive same base image set",
         "Colored base",
-        "Advertisment",
+        "Advertisement",
         "Underage artist",
         "",
         "Does not meet minimum quality standards (Artistic)",
@@ -803,7 +797,7 @@ fart'
     end
 
     def enable_visitor_metrics?
-      true
+      false
     end
   end
 

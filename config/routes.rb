@@ -17,7 +17,6 @@ Rails.application.routes.draw do
         get :alt_list
       end
     end
-    resource :alias_and_implication_import, :only => [:new, :create]
     resource :dashboard, :only => [:show]
     resources :exceptions, only: [:index, :show]
     resource :reowner, controller: 'reowner', only: [:new, :create]
@@ -36,7 +35,6 @@ Rails.application.routes.draw do
         get :export
       end
     end
-    resource :tag, :only => [:edit, :update]
     namespace :post do
       resource :approval, :only => [:create, :destroy]
       resources :disapprovals, :only => [:create, :index]
@@ -150,8 +148,6 @@ Rails.application.routes.draw do
     member do
       post :hide
       post :unhide
-      get :new_merge
-      post :create_merge
       post :subscribe
       post :unsubscribe
     end
@@ -191,10 +187,6 @@ Rails.application.routes.draw do
   resources :pools do
     member do
       put :revert
-      post :undelete
-      get :import
-      get :import_preview
-      post :import_posts
     end
     collection do
       get :gallery

@@ -1,28 +1,22 @@
-class AliasAndImplicationImporter
+class BulkUpdateRequestImporter
   class Error < RuntimeError; end
-  attr_accessor :bur, :text, :forum_id, :rename_aliased_pages, :creator_id, :creator_ip_addr
+  attr_accessor :text, :forum_id, :creator_id, :creator_ip_addr
 
-  def initialize(bur, text, forum_id, rename_aliased_pages = "0", creator = nil, ip_addr = nil)
-    @bur = bur
+  def initialize(text, forum_id, creator = nil, ip_addr = nil)
     @forum_id = forum_id
     @text = text
-    @rename_aliased_pages = rename_aliased_pages
     @creator_id = creator
     @creator_ip_addr = ip_addr
   end
 
   def process!(approver = CurrentUser.user)
-    tokens = AliasAndImplicationImporter.tokenize(text)
+    tokens = BulkUpdateRequestImporter.tokenize(text)
     execute(tokens, approver)
   end
 
   def validate!(user)
-    tokens = AliasAndImplicationImporter.tokenize(text)
+    tokens = BulkUpdateRequestImporter.tokenize(text)
     validate_annotate(tokens, user)
-  end
-
-  def rename_aliased_pages?
-    @rename_aliased_pages == "1"
   end
 
   def self.tokenize(text)
@@ -156,7 +150,7 @@ class AliasAndImplicationImporter
       end
     end
     errors << "Cannot create BUR with more than 25 entries" if tokens.size > 25 && !user.is_admin?
-    [errors, AliasAndImplicationImporter.untokenize(annotated).join("\n")]
+    [errors, BulkUpdateRequestImporter.untokenize(annotated).join("\n")]
   end
 
   def estimate_update_count
@@ -194,7 +188,7 @@ class AliasAndImplicationImporter
       end
     end
 
-    tag_alias.rename_artist if rename_aliased_pages?
+    tag_alias.rename_artist
     raise Error, "Error: Alias would modify other aliases or implications through transitive relationships. (create alias #{tag_alias.antecedent_name} -> #{tag_alias.consequent_name})" if tag_alias.has_transitives
     tag_alias.approve!(approver: approver, update_topic: false, deny_transitives: true)
   end
@@ -229,13 +223,11 @@ class AliasAndImplicationImporter
           tag_alias = TagAlias.active.find_by(antecedent_name: token[1], consequent_name: token[2])
           raise Error, "Alias for #{token[1]} not found" if tag_alias.nil?
           tag_alias.reject!(update_topic: false)
-          tag_alias.destroy
 
         when :remove_implication
           tag_implication = TagImplication.active.find_by(antecedent_name: token[1], consequent_name: token[2])
           raise Error, "Implication for #{token[1]} not found" if tag_implication.nil?
           tag_implication.reject!(update_topic: false)
-          tag_implication.destroy
 
         when :mass_update
           TagBatchJob.perform_later(token[1], token[2], CurrentUser.id, CurrentUser.ip_addr)

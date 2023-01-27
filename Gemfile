@@ -6,15 +6,13 @@ gem "rails", "~> 7.0"
 gem "pg"
 gem "dalli", :platforms => :ruby
 gem "simple_form"
-gem "whenever", :require => false
-gem "sanitize"
 gem 'ruby-vips'
 gem 'diff-lcs', :require => "diff/lcs/array"
 gem 'bcrypt', :require => "bcrypt"
 gem 'draper'
 gem 'streamio-ffmpeg'
 gem 'responders'
-gem 'dtext_rb', :git => "https://github.com/zwagoth/dtext_rb.git", branch: "master", :require => "dtext"
+gem 'dtext_rb', :git => "https://github.com/e621ng/dtext_rb.git", branch: "master", :require => "dtext"
 gem 'cityhash'
 gem 'memoist'
 gem 'bootsnap'
@@ -37,7 +35,7 @@ gem 'elasticsearch-rails'
 gem 'mailgun-ruby'
 gem 'resolv'
 
-group :production, :staging do
+group :production do
   gem 'unicorn', :platforms => :ruby
 end
 

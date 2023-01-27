@@ -42,28 +42,14 @@ div#c-pools {
   }
 }
 
-div#c-pool-orders, div#c-pool-import, div#c-favorite-group-orders {
-  div#a-edit, div#a-import {
-    ul.ui-sortable {
-      list-style-type: none;
+div#c-pool-orders {
+  div#a-edit {
+    .post-preview {
+      margin-right: 4em;
+    }
 
-      li {
-        cursor: pointer;
-        margin-right: 20px;
-        margin-bottom: 20px;
-        min-width: 150px;
-        min-height: 150px;
-        padding: 10px;
-        display: inline-block;
-      }
-
-      li.ui-state-default {
-        background: none;
-      }
-
-      li.ui-state-placeholder {
-        background: none;
-      }
+    .sortable-ghost {
+      visibility: hidden;
     }
   }
 }

@@ -5,21 +5,17 @@
 
 article.post-preview {
   box-sizing: border-box;
-  height: 154px;
+  height: auto;
   width: 154px;
   margin: 0 10px 10px 0;
   overflow: hidden;
   text-align: center;
   display: inline-block;
   position: relative;
+  vertical-align: text-top;
 
   a {
     display: inline-block;
-  }
-
-  &.captioned {
-    height: auto;
-    vertical-align: text-top;
   }
 
   .desc {
@@ -213,7 +209,7 @@ div#c-posts {
 
   div.parent-children {
     display: flex;
-    margin: 0 -$padding-025;
+    margin: 0 (-$padding-025);
     margin-bottom: $padding-025;
     div.notice {
       margin: 0 $padding-025;

@@ -25,8 +25,8 @@ class TagRelationship < ApplicationRecord
   validates :approver, presence: { message: "must exist" }, if: -> { approver_id.present? }
   validates :forum_topic, presence: { message: "must exist" }, if: -> { forum_topic_id.present? }
   validate :validate_creator_is_not_limited, on: :create
-  validates :antecedent_name, tag_name: { disable_ascii_check: true }, on: :create
-  validates :consequent_name, tag_name: true, on: :create
+  validates :antecedent_name, tag_name: { disable_ascii_check: true }, if: :antecedent_name_changed?
+  validates :consequent_name, tag_name: true, if: :consequent_name_changed?
   validate :antecedent_and_consequent_are_different
 
   def initialize_creator
@@ -73,15 +73,15 @@ class TagRelationship < ApplicationRecord
   end
 
   def approvable_by?(user)
-    is_pending? && user.is_moderator?
+    is_pending? && user.is_admin?
   end
 
   def deletable_by?(user)
-    user.is_moderator? || (is_pending? && creator.id == user.id)
+    user.is_admin? || (is_pending? && creator.id == user.id)
   end
 
   def editable_by?(user)
-    is_pending? && user.is_moderator?
+    is_pending? && user.is_admin?
   end
 
   module SearchMethods

@@ -1,7 +1,3 @@
-require 'digest/sha1'
-require 'zlib'
-require 'danbooru/has_bit_flags'
-
 class User < ApplicationRecord
   class Error < Exception ; end
   class PrivilegeError < Exception
@@ -71,10 +67,9 @@ class User < ApplicationRecord
 
   after_initialize :initialize_attributes, if: :new_record?
 
-  validates :email, presence: { if: :enable_email_verification?, unless: :skip_email_blank_check }
+  validates :email, presence: { if: :enable_email_verification? }
   validates :email, uniqueness: { case_sensitive: false, if: :enable_email_verification? }
-  validates :email, uniqueness: { case_sensitive: false, on: :create, if: ->(rec) { rec.email.present? && !Danbooru.config.enable_email_verification? } }
-  validates :email, format: { with: /\A.+@[^ ,;@]+\.[^ ,;@]+\z/, if: :enable_email_verification?, unless: ->(rec) { rec.email.blank? && !rec.email_changed? && rec.skip_email_blank_check } }
+  validates :email, format: { with: /\A.+@[^ ,;@]+\.[^ ,;@]+\z/, if: :enable_email_verification? }
   validate :validate_email_address_allowed, on: [:create, :update], if: ->(rec) { (rec.new_record? && rec.email.present?) || (rec.email.present? && rec.email_changed?) }
 
   validates :name, user_name: true, on: :create
@@ -92,9 +87,10 @@ class User < ApplicationRecord
   before_validation :staff_cant_disable_dmail
   before_validation :blank_out_nonexistent_avatars
   validates :blacklisted_tags, length: { maximum: 150_000 }
-  validates  :custom_style, length: { maximum: 500_000}
+  validates :custom_style, length: { maximum: 500_000 }
   validates :profile_about, length: { maximum: Danbooru.config.user_about_max_size }
   validates :profile_artinfo, length: { maximum: Danbooru.config.user_about_max_size }
+  validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map(&:name) }
   before_create :encrypt_password_on_create
   before_update :encrypt_password_on_update
   after_save :update_cache
@@ -148,7 +144,7 @@ class User < ApplicationRecord
 
     module ClassMethods
       def name_to_id(name)
-        Cache.get("uni:#{Cache.hash(name)}", 4.hours) do
+        Cache.fetch("uni:#{Cache.hash(name)}", 4.hours) do
           val = select_value_sql("SELECT id FROM users WHERE lower(name) = ?", name.downcase.tr(" ", "_").to_s)
           if val.present?
             val.to_i
@@ -177,7 +173,7 @@ class User < ApplicationRecord
         if RequestStore[:id_name_cache].key?(user_id)
           return RequestStore[:id_name_cache][user_id]
         end
-        name = Cache.get("uin:#{user_id}", 4.hours) do
+        name = Cache.fetch("uin:#{user_id}", 4.hours) do
           select_value_sql("SELECT name FROM users WHERE id = ?", user_id) || Danbooru.config.default_guest_name
         end
         RequestStore[:id_name_cache][user_id] = name
@@ -206,8 +202,8 @@ class User < ApplicationRecord
     end
 
     def update_cache
-      Cache.put("uin:#{id}", name, 4.hours)
-      Cache.put("uni:#{Cache.hash(name)}", id, 4.hours)
+      Cache.write("uin:#{id}", name, 4.hours)
+      Cache.write("uni:#{Cache.hash(name)}", id, 4.hours)
     end
   end
 
@@ -371,8 +367,8 @@ class User < ApplicationRecord
       self.disable_user_dmails = false if self.is_janitor?
     end
 
-    def level_class
-      "user-#{level_string.downcase}"
+    def level_css_class
+      "user-#{level_string.parameterize}"
     end
 
     def create_user_status
@@ -394,6 +390,8 @@ class User < ApplicationRecord
     end
 
     def enable_email_verification?
+      # Allow admins to edit users with blank emails
+      return false if email.blank? && !email_changed? && skip_email_blank_check
       Danbooru.config.enable_email_verification? && validate_email_format
     end
 
@@ -680,7 +678,7 @@ class User < ApplicationRecord
       [
         :wiki_page_version_count, :artist_version_count, :pool_version_count,
         :forum_post_count, :comment_count,
-        :flag_count, :positive_feedback_count,
+        :flag_count, :favorite_count, :positive_feedback_count,
         :neutral_feedback_count, :negative_feedback_count, :upload_limit
       ]
     end
@@ -896,7 +894,7 @@ class User < ApplicationRecord
   end
 
   def hide_favorites?
-    return false if CurrentUser.is_admin?
+    return false if CurrentUser.is_moderator?
     return true if is_blocked?
     enable_privacy_mode? && CurrentUser.user.id != id
   end

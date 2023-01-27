@@ -7,7 +7,7 @@
   </li>
   <li>Rating: <%= pretty_html_rating(post) %></li>
   <li>Score: <%= post_vote_block(post, post.own_vote) %>
-    <% if CurrentUser.is_admin? %><span><%= link_to "(votes)", controller: :post_votes, search: { post_id: post.id} %></span><% end %>
+    <% if CurrentUser.is_moderator? %><span><%= link_to "(votes)", controller: :post_votes, search: { post_id: post.id} %></span><% end %>
   </li>
   <li>
     Posted: <%= link_to time_ago_in_words_tagged(post.created_at), posts_path(:tags => "date:#{post.created_at.to_date}"), :rel => "nofollow" %>
@@ -17,7 +17,7 @@
     <li>
       Uploader: <%= link_to_user(post.uploader) %> <%= user_record_meta(post.uploader) %>
       <% if post.uploader_linked_artists.any? %>
-        <i class="uploader-is-artist fas fa-check" title="The uploader is linked to one of the artist tags"></i>
+        <i class="uploader-is-artist far fa-check-circle" title="The uploader is linked to one of the artist tags"></i>
       <% end %>
     </li>
   <% end %>

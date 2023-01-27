@@ -5,7 +5,7 @@
     <%= render "search" %>
     <%= render "posts/partials/common/inline_blacklist" %>
 
-    <table width="100%" class="striped autofit" style="max-width:100%">
+    <table class="striped autofit" style="max-width:100%">
       <thead>
         <tr>
           <th width="1%">Post</th>
@@ -118,7 +118,7 @@
                   <%= link_to "Reset To", "#approve", class: "replacement-approve-action", data: { replacement_id: post_replacement.id, penalize: false} %><br>
                 <% end %>
               <% end %>
-              <% if CurrentUser.is_moderator? %>
+              <% if CurrentUser.is_admin? %>
                 <%= link_to "Destroy", post_replacement_path(post_replacement), method: :DELETE, 'data-confirm': 'Are you sure you want to destroy this replacement?' %>
               <% end %>
             </td>

@@ -5,10 +5,12 @@ function importAll(r) {
   r.keys().forEach(r);
 }
 
-require('jquery-ujs');
+export { default as $ } from "jquery";
 
-// should start looking for nodejs replacements
-importAll(require.context('../vendor', true, /\.js$/));
+import Rails from "@rails/ujs";
+Rails.start();
+
+require("jquery-hotkeys");
 
 require("jquery-ui/ui/widgets/autocomplete");
 require("jquery-ui/ui/widgets/button");

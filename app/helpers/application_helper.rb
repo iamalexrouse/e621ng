@@ -1,5 +1,3 @@
-require 'dtext'
-
 module ApplicationHelper
   def disable_mobile_mode?
     if CurrentUser.user.present? && CurrentUser.is_member?
@@ -38,38 +36,6 @@ module ApplicationHelper
     klass = options.delete(:class)
     id = id_prefix + text.downcase.gsub(/[^a-z ]/, "").parameterize
     tag.li(link_to(text, url, id: "#{id}-link", **options), id: id, class: klass)
-  end
-
-  def fast_link_to(text, link_params, options = {})
-    if options
-      attributes = options.map do |k, v|
-        %{#{k}="#{h(v)}"}
-      end.join(" ")
-    else
-      attributes = ""
-    end
-
-    if link_params.is_a?(Hash)
-      action = link_params.delete(:action)
-      controller = link_params.delete(:controller) || controller_name
-      id = link_params.delete(:id)
-
-      link_params = link_params.map {|k, v| "#{k}=#{u(v)}"}.join("&")
-
-      if link_params.present?
-        link_params = "?#{link_params}"
-      end
-
-      if id
-        url = "/#{controller}/#{action}/#{id}#{link_params}"
-      else
-        url = "/#{controller}/#{action}#{link_params}"
-      end
-    else
-      url = link_params
-    end
-
-    raw %{<a href="#{h(url)}" #{attributes}>#{text}</a>}
   end
 
   def dtext_ragel(text, **options)
@@ -155,32 +121,17 @@ module ApplicationHelper
     to_sentence(links, **options)
   end
 
-  def link_to_user(user)
+  def link_to_user(user, include_activation: false)
     return "anonymous" if user.blank?
 
-    user_class = user.level_class
+    user_class = user.level_css_class
     user_class += " user-post-approver" if user.can_approve_posts?
     user_class += " user-post-uploader" if user.can_upload_free?
     user_class += " user-banned" if user.is_banned?
     user_class += " with-style" if CurrentUser.user.style_usernames?
-    link_to(user.pretty_name, user_path(user), class: user_class, rel: "nofollow")
-  end
-
-  def mod_link_to_user(user, positive_or_negative)
-    html = ""
-    html << link_to_user(user)
-
-    if positive_or_negative == :positive
-      html << " [" + link_to("+", new_user_feedback_path(:user_feedback => {:category => "positive", :user_id => user.id})) + "]"
-
-      unless user.is_moderator?
-        html << " [" + link_to("promote", edit_admin_user_path(user)) + "]"
-      end
-    else
-      html << " [" + link_to("&ndash;".html_safe, new_user_feedback_path(:user_feedback => {:category => "negative", :user_id => user.id})) + "]"
-    end
-
-    html.html_safe
+    html = link_to(user.pretty_name, user_path(user), class: user_class, rel: "nofollow")
+    html << " (Unactivated)" if include_activation && !user.is_verified?
+    html
   end
 
   def body_attributes(user = CurrentUser.user)

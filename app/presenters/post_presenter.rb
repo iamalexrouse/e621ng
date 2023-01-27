@@ -88,9 +88,7 @@ class PostPresenter < Presenter
   end
 
   def self.preview_class(post, pool: nil, size: nil, similarity: nil, **options)
-    klass = ["post-preview", "captioned"]
-    # Always captioned with new post stats section.
-    # klass << "captioned" if pool || size || similarity
+    klass = ["post-preview"]
     klass << "post-status-pending" if post.is_pending?
     klass << "post-status-flagged" if post.is_flagged?
     klass << "post-status-deleted" if post.is_deleted?
@@ -100,7 +98,6 @@ class PostPresenter < Presenter
     klass << "post-rating-questionable" if post.rating == 'q'
     klass << "post-rating-explicit" if post.rating == 'e'
     klass << "post-no-blacklist" if options[:no_blacklist]
-    klass << "post-thumbnail-blacklisted" if options[:thumbnail_blacklisted]
     klass
   end
 
@@ -235,7 +232,7 @@ class PostPresenter < Presenter
   end
 
   def has_sequential_navigation?(params)
-    return false if Tag.has_metatag?(params[:q], :order, :ordpool)
+    return false if Tag.has_metatag?(params[:q], :order)
     return false if params[:pool_id].present? || params[:post_set_id].present?
     true
   end
