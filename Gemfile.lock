@@ -239,8 +239,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.1)
     rack (2.2.4)
-    rack-proxy (0.7.4)
-      rack
     rack-test (2.0.2)
       rack (>= 1.3)
     rails (7.0.4)
@@ -314,7 +312,6 @@ GEM
     ruby-vips (2.1.4)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
-    semantic_range (3.0.0)
     shoulda-context (2.0.0)
     shoulda-matchers (5.2.0)
       activesupport (>= 5.2.0)
@@ -366,11 +363,6 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (6.0.0.rc.6)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     webrick (1.7.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
@@ -426,7 +418,6 @@ DEPENDENCIES
   unicorn
   unicorn-worker-killer
   webmock
-  webpacker (>= 4.0.x)
 
 BUNDLED WITH
    2.3.12

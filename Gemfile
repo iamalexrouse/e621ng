@@ -20,7 +20,6 @@ gem 'bootsnap'
 gem 'addressable'
 gem 'httparty'
 gem 'recaptcha', require: "recaptcha/rails"
-gem 'webpacker', '>= 4.0.x'
 gem 'retriable'
 gem 'sidekiq', '~> 6.0'
 gem 'marcel'
