@@ -1,5 +1,6 @@
 import DText from "./dtext";
 import Utility from "./utility";
+import $ from "jquery";
 
 let Comment = {};
 

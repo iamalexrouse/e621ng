@@ -1,5 +1,6 @@
 import Utility from './utility'
 import Post from './posts'
+import $ from "jquery";
 
 let ModQueue = {};
 

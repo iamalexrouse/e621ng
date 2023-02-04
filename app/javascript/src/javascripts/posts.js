@@ -3,6 +3,7 @@ import ZingTouch from 'zingtouch'
 import LS from './local_storage'
 import Note from './notes'
 import { SendQueue } from './send_queue'
+import $ from "jquery";
 
 let Post = {};
 

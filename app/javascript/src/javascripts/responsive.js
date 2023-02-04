@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 $(function() {
   $("#maintoggle").on("click.danbooru", function(e) {
     e.preventDefault();

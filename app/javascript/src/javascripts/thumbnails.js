@@ -1,5 +1,6 @@
 import Blacklist from './blacklists';
 import LS from './local_storage';
+import $ from "jquery";
 
 const Thumbnails = {};
 

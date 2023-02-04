@@ -1,4 +1,5 @@
 let Utility = {};
+import $ from "jquery";
 
 Utility.delay = function(milliseconds) {
   return new Promise(resolve => setTimeout(resolve, milliseconds));

@@ -1,4 +1,5 @@
 import Cookie from "./cookie";
+import $ from "jquery";
 
 const GuestWarning = {
   init() {

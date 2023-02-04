@@ -32,7 +32,7 @@ test/reports
 .idea
 
 /public/packs
-/public/packs-test
+/public/vite*
 /node_modules
 /yarn-error.log
 yarn-debug.log*

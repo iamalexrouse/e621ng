@@ -1,4 +1,5 @@
 import { SendQueue } from './send_queue';
+import $ from "jquery";
 
 const DText = {};
 

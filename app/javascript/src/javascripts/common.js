@@ -1,6 +1,7 @@
 import Cookie from './cookie'
 import LS from './local_storage'
 import Utility from './utility'
+import $ from "jquery";
 
 function initSearch() {
   const $searchForm = $("#searchform");

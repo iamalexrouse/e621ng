@@ -5,7 +5,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.1",
     "@rails/ujs": "^7.0.4",
-    "core-js": "3.8",
     "jquery": "^3.6.3",
     "jquery-hotkeys": "^0.2.2",
     "jquery-ui": "^1.12.1",
@@ -14,5 +13,12 @@
     "zingtouch": "^1.0.6"
   },
   "version": "0.1.0",
-  "devDependencies": {}
+  "devDependencies": {
+    "@vitejs/plugin-legacy": "^3.0.2",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "terser": "^5.16.3",
+    "vite": "^4.0.0",
+    "vite-plugin-erb": "^1.1.2",
+    "vite-plugin-ruby": "^3.1.2"
+  }
 }

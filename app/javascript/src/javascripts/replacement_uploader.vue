@@ -35,6 +35,7 @@ import autocompletableInput from "./autocompletable_input.vue";
 import filePreview from "./uploader/file_preview.vue";
 import fileInput from "./uploader/file_input.vue";
 import sources from "./uploader/sources.vue";
+import $ from "jquery";
 
 export default {
   components: {

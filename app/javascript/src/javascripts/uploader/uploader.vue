@@ -249,6 +249,7 @@
   import tagPreview from './tag_preview.vue';
   import filePreview from './file_preview.vue';
   import fileInput from './file_input.vue';
+  import $ from "jquery";
 
   const sex_checks = [
     {name: 'Male'},

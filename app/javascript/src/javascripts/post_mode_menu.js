@@ -6,6 +6,7 @@ import PostSet from './post_sets'
 import TagScript from './tag_script'
 import { SendQueue } from './send_queue'
 import Rails from '@rails/ujs'
+import $ from "jquery";
 
 let PostModeMenu = {};
 

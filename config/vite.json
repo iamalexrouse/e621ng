@@ -1,0 +1,14 @@
+{
+  "all": {
+    "sourceCodeDir": "app/javascript"
+  },
+  "production": {
+    "publicOutputDir": "packs"
+  },
+  "development": {
+    "autoBuild": true
+  },
+  "test": {
+    "autoBuild": true
+  }
+}

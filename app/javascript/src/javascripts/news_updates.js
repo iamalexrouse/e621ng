@@ -1,4 +1,5 @@
 import LS from './local_storage'
+import $ from "jquery";
 
 let NewsUpdate = {};
 

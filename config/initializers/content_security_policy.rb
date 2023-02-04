@@ -8,8 +8,20 @@ Rails.application.configure do
   config.content_security_policy do |policy|
     policy.default_src :self
     policy.script_src  :self, 'ads.dragonfru.it', 'js-agent.newrelic.com', 'bam.nr-data.net', 'https://www.google.com/recaptcha/', 'https://www.gstatic.com/recaptcha/', 'https://www.recaptcha.net/'
+    # Allow @vite/client to hot reload javascript changes in development
+    # policy.script_src *policy.script_src, :unsafe_eval, "http://#{ ViteRuby.config.host_with_port }" if Rails.env.development?
+
+    # You may need to enable this in production as well depending on your setup.
+    # policy.script_src *policy.script_src, :blob if Rails.env.test?
+
     policy.style_src   :self, :unsafe_inline
+    # Allow @vite/client to hot reload style changes in development
+    # policy.style_src *policy.style_src, :unsafe_inline if Rails.env.development?
+
     policy.connect_src :self, 'ads.dragonfru.it', 'bam.nr-data.net', 'plausible.dragonfru.it'
+    # Allow @vite/client to hot reload changes in development
+    # policy.connect_src *policy.connect_src, "ws://#{ ViteRuby.config.host_with_port }" if Rails.env.development?
+
     policy.object_src  :self, 'static1.e621.net', 'static1.e926.net'
     policy.media_src   :self, 'static1.e621.net', 'static1.e926.net'
     policy.frame_ancestors :none

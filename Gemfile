@@ -28,6 +28,7 @@ gem 'marcel'
 gem 'sidekiq-unique-jobs'
 gem 'redis'
 gem 'request_store'
+gem 'vite_rails'
 
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'

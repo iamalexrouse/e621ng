@@ -1,4 +1,5 @@
 import Utility from './utility.js';
+import $ from "jquery";
 
 class TagRelationships {
   static approve(e) {

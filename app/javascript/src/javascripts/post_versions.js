@@ -1,6 +1,7 @@
 import Utility from './utility';
 import {SendQueue} from "./send_queue";
 import Post from './posts';
+import $ from "jquery";
 
 let PostVersion = {};
 

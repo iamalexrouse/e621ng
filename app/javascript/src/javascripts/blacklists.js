@@ -1,6 +1,7 @@
 import Utility from './utility'
 import LS from './local_storage'
 import Post from './posts';
+import $ from "jquery";
 
 let Blacklist = {};
 

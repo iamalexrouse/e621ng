@@ -33,6 +33,7 @@
   import Post from './posts';
   import Autocomplete from "./autocomplete.js.erb";
   import Utility from "./utility.js";
+  import $ from "jquery";
 
   function tagSorter(a, b) {
     return a[0] > b[0] ? 1 : -1;

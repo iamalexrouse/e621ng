@@ -1,4 +1,5 @@
 let PostDeletion = {};
+import $ from "jquery";
 
 PostDeletion.init = function() {
   const input = $("#reason");

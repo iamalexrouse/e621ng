@@ -1,35 +1,29 @@
-/* eslint no-console:0 */
-/* global require */
-
-function importAll(r) {
-  r.keys().forEach(r);
-}
-
-export { default as $ } from "jquery";
+import jQuery from "jquery";
+window.$ = jQuery;
 
 import Rails from "@rails/ujs";
 Rails.start();
 
 require("jquery-hotkeys");
 
-require("jquery-ui/ui/widgets/autocomplete");
-require("jquery-ui/ui/widgets/button");
-require("jquery-ui/ui/widgets/dialog");
-require("jquery-ui/ui/widgets/draggable");
-require("jquery-ui/ui/widgets/sortable");
-require("jquery-ui/ui/widgets/resizable");
-require("jquery-ui/themes/base/core.css");
-require("jquery-ui/themes/base/autocomplete.css");
-require("jquery-ui/themes/base/button.css");
-require("jquery-ui/themes/base/dialog.css");
-require("jquery-ui/themes/base/draggable.css");
-require("jquery-ui/themes/base/sortable.css");
-require("jquery-ui/themes/base/resizable.css");
-require("jquery-ui/themes/base/theme.css");
+// require("jquery-ui/ui/widgets/autocomplete");
+// require("jquery-ui/ui/widgets/button");
+// require("jquery-ui/ui/widgets/dialog");
+// require("jquery-ui/ui/widgets/draggable");
+// require("jquery-ui/ui/widgets/sortable");
+// require("jquery-ui/ui/widgets/resizable");
+// require("jquery-ui/themes/base/core.css");
+// require("jquery-ui/themes/base/autocomplete.css");
+// require("jquery-ui/themes/base/button.css");
+// require("jquery-ui/themes/base/dialog.css");
+// require("jquery-ui/themes/base/draggable.css");
+// require("jquery-ui/themes/base/sortable.css");
+// require("jquery-ui/themes/base/resizable.css");
+// require("jquery-ui/themes/base/theme.css");
 
-require('../src/styles/base.scss');
+import "../src/styles/base.scss";
 
-importAll(require.context('../src/javascripts', true, /\.js(\.erb)?$/));
+require.context(["../src/javascripts/*.js", "../src/javascripts/*.js.erb"]);
 
 export { default as Artist } from '../src/javascripts/artist.js';
 export { default as Autocomplete } from '../src/javascripts/autocomplete.js.erb';

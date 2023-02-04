@@ -3,6 +3,7 @@ import Comment from './comments.js';
 import DText from './dtext.js';
 import ForumPost from './forum_posts.js';
 import Utility from './utility.js';
+import $ from "jquery";
 
 class UserWarnable {
   static initialize_click_handlers() {

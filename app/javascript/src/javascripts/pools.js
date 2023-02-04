@@ -1,4 +1,5 @@
 let Pool = {};
+import $ from "jquery";
 
 Pool.dialog_setup = false;
 

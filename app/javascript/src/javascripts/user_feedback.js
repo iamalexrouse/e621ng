@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 $(() => {
   $("#c-user-feedbacks #negative-policy").hide();
   $("#c-user-feedbacks #user_feedback_category").on("change.danbooru", (e) => {

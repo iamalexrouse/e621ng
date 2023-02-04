@@ -1,6 +1,7 @@
 import Post from './posts'
 import Utility from './utility'
 import {SendQueue} from './send_queue'
+import $ from "jquery";
 
 let Favorite = {};
 
