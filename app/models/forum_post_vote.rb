@@ -41,16 +41,6 @@ class ForumPostVote < ApplicationRecord
     score == 0
   end
 
-  def fa_class
-    if score == 1
-      "fa-thumbs-up"
-    elsif score == -1
-      "fa-thumbs-down"
-    else
-      "fa-face-meh"
-    end
-  end
-
   def vote_type
     if score == 1
       return "up"

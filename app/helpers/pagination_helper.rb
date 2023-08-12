@@ -22,22 +22,21 @@ module PaginationHelper
 
     with_paginator_wrapper do
       html = "".html_safe
-      icon_left = tag.i(class: "fa-solid fa-chevron-left")
+
       if records.current_page >= 2
-        html << tag.li(class: "arrow") { link_to(icon_left, nav_params_for(records.current_page - 1), rel: "prev", id: "paginator-prev", data: { shortcut: "a left" }) }
+        html << tag.li(class: "arrow") { link_to(paginate_left_icon, nav_params_for(records.current_page - 1), rel: "prev", id: "paginator-prev", data: { shortcut: "a left" }) }
       else
-        html << tag.li(class: "arrow") { tag.span(icon_left) }
+        html << tag.li(class: "arrow") { tag.span(paginate_left_icon) }
       end
 
       paginator_pages(records).each do |page|
         html << numbered_paginator_item(page, records)
       end
 
-      icon_right = tag.i(class: "fa-solid fa-chevron-right")
       if records.current_page < records.total_pages
-        html << tag.li(class: "arrow") { link_to(icon_right, nav_params_for(records.current_page + 1), rel: "next", id: "paginator-next", data: { shortcut: "d right" }) }
+        html << tag.li(class: "arrow") { link_to(paginate_right_icon, nav_params_for(records.current_page + 1), rel: "next", id: "paginator-next", data: { shortcut: "d right" }) }
       else
-        html << tag.li(class: "arrow") { tag.span(icon_right) }
+        html << tag.li(class: "arrow") { tag.span(paginate_right_icon) }
       end
       html
     end
@@ -72,7 +71,7 @@ module PaginationHelper
 
     html = "".html_safe
     if page == "..."
-      html << tag.li(class: "more") { tag.i(class: "fa-solid fa-ellipsis") }
+      html << tag.li(class: "more") { paginator_more_icon }
     elsif page == records.current_page
       html << tag.li(class: "current-page") { tag.span(page) }
     else

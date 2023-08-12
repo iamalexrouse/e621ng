@@ -4,15 +4,15 @@
     <a data-action="show" role="tab">Preview</a>
   </div>
   <div class="dtext-formatter-buttons" role="toolbar">
-    <%= tag.a(tag.i(class: "fa-solid fa-bold"), title: "Bold", data: { content: "[b]%selection%[/b]" }) %>
-    <%= tag.a(tag.i(class: "fa-solid fa-italic"), title: "Italics", data: { content: "[i]%selection%[/i]" }) %>
-    <%= tag.a(tag.i(class: "fa-solid fa-strikethrough"), title: "Strikethrough", data: { content: "[s]%selection%[/s]" }) %>
-    <%= tag.a(tag.i(class: "fa-solid fa-underline"), title: "Underline", data: { content: "[u]%selection%[/u]" }) %>
+    <%= tag.a(dtext_bold_icon, title: "Bold", data: { content: "[b]%selection%[/b]" }) %>
+    <%= tag.a(dtext_italic_icon, title: "Italics", data: { content: "[i]%selection%[/i]" }) %>
+    <%= tag.a(dtext_strikethrough_icon, title: "Strikethrough", data: { content: "[s]%selection%[/s]" }) %>
+    <%= tag.a(dtext_underline_icon, title: "Underline", data: { content: "[u]%selection%[/u]" }) %>
     <span class="spacer"></span>
-    <%= tag.a(tag.i(class: "fa-solid fa-heading"), title: "Header", data: { content: "h2.%selection%" }) %>
-    <%= tag.a(tag.i(class: "fa-solid fa-eye-slash"), title: "Spoiler", data: { content: "[spoiler]%selection%[/spoiler]" }) %>
-    <%= tag.a(tag.i(class: "fa-solid fa-code"), title: "Code", data: { content: "[code]%selection%[/code]" }) %>
-    <%= tag.a(tag.i(class: "fa-solid fa-quote-right"), title: "Quote", data: { content: "[quote]%selection%[/quote]" }) %>
+    <%= tag.a(dtext_heading_icon, title: "Header", data: { content: "h2.%selection%" }) %>
+    <%= tag.a(dtext_spoiler_icon, title: "Spoiler", data: { content: "[spoiler]%selection%[/spoiler]" }) %>
+    <%= tag.a(dtext_code_icon, title: "Code", data: { content: "[code]%selection%[/code]" }) %>
+    <%= tag.a(dtext_quote_icon, title: "Quote", data: { content: "[quote]%selection%[/quote]" }) %>
   </div>
   <%= textarea %>
   <div class="dtext-formatter-preview dtext-container"></div>

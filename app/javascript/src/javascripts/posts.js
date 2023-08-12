@@ -915,7 +915,6 @@ Post.disapprove = function(post_id, reason, should_reload) {
 Post.update_tag_count = function(event) {
   let string = "0 tags";
   let count = 0;
-  let count2 = 1;
 
   if (event) {
     let tags = [...new Set($(event.target).val().match(/\S+/g))];
@@ -925,13 +924,15 @@ Post.update_tag_count = function(event) {
     }
   }
   $("#tags-container .count").html(string);
-  let klass = "smile";
+  let type = "good";
   if (count < 15) {
-    klass = "frown";
+    type = "bad";
   } else if (count < 25) {
-    klass = "meh";
+    type = "meh";
   }
-  $("#tags-container .options #face").removeClass().addClass(`fa-regular fa-face-${klass}`);
+  const face = $("#tags-container .options #face");
+  face.children().hide();
+  $("." + type, face).show();
 }
 
 Post.vote_up = function (e) {

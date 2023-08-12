@@ -37,21 +37,23 @@ div#c-tags {
         padding-bottom: 0.2em;
       }
 
-      i {
+      .svg-icon {
         margin-left: 0.25em;
         font-size: 11pt;
       }
 
-      .fa-face-frown {
-        color: $tags-vote-down-color;
-      }
+      #face {
+        .bad {
+          color: $tags-vote-down-color;
+        }
 
-      .fa-face-meh {
-        color: $tags-vote-meh-color;
-      }
+        .meh {
+          color: $tags-vote-meh-color;
+        }
 
-      .fa-face-smile {
-        color: $tags-vote-up-color;
+        .good {
+          color: $tags-vote-up-color;
+        }
       }
     }
   }

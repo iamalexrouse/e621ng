@@ -38,7 +38,6 @@
       cursor: pointer;
       line-height: 1;
       @include nonselectable;
-      @include font-awesome-icon;
       
       &:hover {
         background: #ffffff15;

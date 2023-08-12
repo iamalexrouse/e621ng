@@ -50,9 +50,3 @@ $box-shadow-size: 2px 2px 5px;
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Chrome, Edge, Opera and Firefox */
 }
-
-// SASS converts UTF-8 character codes to their actual characters.
-// This occasionally causes issues. See https://github.com/sass/sass/issues/1395
-@function unicode($str) {
-  @return unquote("\"")+unquote(str-insert($str, "\\", 1))+unquote("\"");
-}

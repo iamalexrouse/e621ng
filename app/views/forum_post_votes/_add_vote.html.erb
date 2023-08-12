@@ -3,9 +3,9 @@
 %>
 
 <li class="forum-post-vote-block">
-  <%= link_to tag.i(class: "fa-regular fa-thumbs-up"), "#", title: "Vote up", class: "forum-vote-up", 'data-forum-id': forum_post.id %>
+  <%= link_to vote_up_icon, "#", title: "Vote up", class: "forum-vote-up", 'data-forum-id': forum_post.id %>
 
-  <%= link_to tag.i(class: "fa-regular fa-face-meh"), "#", title: "Vote meh", class: "forum-vote-meh", 'data-forum-id': forum_post.id %>
+  <%= link_to vote_meh_icon, "#", title: "Vote meh", class: "forum-vote-meh", 'data-forum-id': forum_post.id %>
 
-  <%= link_to tag.i(class: "fa-regular fa-thumbs-down"), "#", title: "Vote down", class: "forum-vote-down", 'data-forum-id': forum_post.id %>
+  <%= link_to vote_down_icon, "#", title: "Vote down", class: "forum-vote-down", 'data-forum-id': forum_post.id %>
 </li>

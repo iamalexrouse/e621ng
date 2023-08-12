@@ -29,6 +29,7 @@ require("jquery-ui/themes/base/resizable.css");
 require("jquery-ui/themes/base/theme.css");
 
 require('../src/styles/base.scss');
+require("images/fa-icons.svg");
 
 importAll(require.context('../src/javascripts', true, /\.js(\.erb)?$/));
 
