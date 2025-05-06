@@ -167,10 +167,8 @@ class StorageManager
 
   def file_name(md5, file_ext, type, scale_factor: nil)
     case type
-    when :preview
-      "#{md5}.jpg"
-    when :crop
-      "#{md5}.jpg"
+    when :preview, :crop
+      "#{md5}.#{file_ext || 'jpg'}"
     when :large
       "#{large_image_prefix}#{md5}.jpg"
     when :original
