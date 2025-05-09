@@ -240,7 +240,11 @@ class Post < ApplicationRecord
     end
 
     def regenerate_image_samples!
-      generate_image_samples(later: true)
+      if file_size < 10.megabytes
+        ImageSampler.create_samples_for_post(self)
+      else
+        generate_image_samples(later: true)
+      end
     end
   end
 
