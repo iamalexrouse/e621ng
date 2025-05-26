@@ -50,4 +50,9 @@ module UsersHelper
 
     render "/application/feedback_badge", user: user, positive: feedbacks[:positive], neutral: feedbacks[:neutral], negative: feedbacks[:negative], deleted: deleted, active: active, total: total
   end
+
+  def user_rank_badge(user)
+    return if user.nil?
+    render "/application/user_badge", user: user
+  end
 end

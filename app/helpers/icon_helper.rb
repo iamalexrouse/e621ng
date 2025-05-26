@@ -105,4 +105,15 @@ module IconHelper
       concat tag.text(number, "x": "50%", "y": "55%", "dominant-baseline": "middle", "text-anchor": "middle", "font-size": "20px", "font-family": "monospace", "font-weight": "bold")
     end
   end
+
+  def user_badge(name)
+    "" unless (name) != nil
+
+    tag.img(
+      "src": "/images/icons/#{name}.png",
+      "alt": "#{name}",
+      "width": "20px",
+      "height": "20px",
+    )
+  end
 end
