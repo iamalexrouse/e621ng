@@ -1,0 +1,14 @@
+<%= if user.is_bd_staff?
+  user_badge("bd")
+  end
+%>
+
+<%= if user.is_staff?
+  user_badge("staff")
+  end
+%>
+
+<%= if user.is_verified? # replace this with a verified user thingy majig when you finally get around to making one.
+  user_badge("verified")
+  end
+%>
