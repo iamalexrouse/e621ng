@@ -5,7 +5,7 @@
            data-is-deleted="<%= comment.is_hidden? %>" id="comment-<%= comment.id %>">
     <div class="author-info">
       <div class="name-rank">
-        <h4 class="author-name"><%= link_to_user comment.creator %></h4>
+        <h4 class="author-name"><%= link_to_user comment.creator %> <%= user_rank_badge(comment.creator, true) %></h4>
         <%= comment.creator.level_string %>
         <% if comment.is_hidden? %>
           (hidden)

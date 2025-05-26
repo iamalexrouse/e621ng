@@ -51,8 +51,8 @@ module UsersHelper
     render "/application/feedback_badge", user: user, positive: feedbacks[:positive], neutral: feedbacks[:neutral], negative: feedbacks[:negative], deleted: deleted, active: active, total: total
   end
 
-  def user_rank_badge(user)
+  def user_rank_badge(user, isComment)
     return if user.nil?
-    render "/application/user_badge", user: user
+    render "/application/user_badge", user: user, isComment: isComment
   end
 end

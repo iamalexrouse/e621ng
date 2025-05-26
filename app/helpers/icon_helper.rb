@@ -106,14 +106,14 @@ module IconHelper
     end
   end
 
-  def user_badge(name)
+  def user_badge(name, isComment)
     "" unless (name) != nil
 
     tag.img(
       "src": "/images/icons/#{name}.png",
       "alt": "#{name}",
-      "width": "20px",
-      "height": "20px",
+      "width": !isComment ? "20px" : "16px",
+      "height": !isComment ? "20px" : "16px",
     )
   end
 end
